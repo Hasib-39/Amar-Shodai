@@ -1,8 +1,9 @@
-import 'package:amar_shodai/widgets/home_screen_header.dart';
+import 'package:amar_shodai/utils/resonsive_helper.dart';
+import 'package:amar_shodai/utils/theme.dart';
+import 'package:amar_shodai/widgets/search_box.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-
-import '../utils/theme.dart';
+import 'package:google_fonts/google_fonts.dart';
+import '../widgets/category_drop_down.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -12,11 +13,124 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       body: Column(
         children: [
-          HomeScreenHeader(),
+          ResponsiveWidget(
+            mobile: Text("mobile"),
+            tab: _buildTabNavbar(),
+            desktop: _buildDesktopNavbar(),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Container _buildDesktopNavbar() {
+    return Container(
+      height: 80,
+      decoration: BoxDecoration(color: Colors.white),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Expanded(flex:0,child: Image.asset(height: 56, "assets/images/logo.png")),
+          SizedBox(width: 8),
+          Expanded(flex:0,child: CategoryDropdown(isTablet: false)),
+          SizedBox(width: 8,),
           Expanded(
-            child: ListView.builder(itemCount: 100,itemBuilder: (context, index){
-              return Text("hello");
-            }),
+            flex: 0,
+            child: ElevatedButton(
+              onPressed: () {},
+              style: ElevatedButton.styleFrom(
+                backgroundColor: const Color(0xfff97216),
+                padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 8),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(4),
+                ),
+              ),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    "📢 OFFER",
+                    style: lightMode.textTheme.labelSmall?.copyWith(
+                      color: Colors.white, // text visible on orange bg
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          SizedBox(width: 8,),
+          Expanded(flex:2,child: SearchBox()),
+          SizedBox(width: 8,),
+          // LOGIN / REGISTER Button
+          Expanded(
+            flex: 0,
+            child: TextButton.icon(
+              onPressed: () {
+                // TODO: Navigate to login/register
+              },
+              icon: Icon(
+                Icons.person, // user icon
+                size: 16,
+                color: Colors.white,
+              ),
+              label: Text(
+                "LOGIN / REGISTER",
+                style: GoogleFonts.robotoMono(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white
+                ),
+              ),
+              style: TextButton.styleFrom(
+                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                backgroundColor: Colors.black,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(4),
+                ),
+              ),
+            ),
+          ),
+          const SizedBox(width: 8),
+          // Cart Button
+          Expanded(
+            flex: 0,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: IconButton(
+                onPressed: () {
+                  // TODO: Navigate to cart
+                },
+                icon: const Icon(
+                  Icons.shopping_cart,
+                  size: 30,
+                  color: Colors.black,
+                ),
+                padding: EdgeInsets.zero, // remove default padding
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Container _buildTabNavbar() {
+    return Container(
+      height: 80,
+      decoration: BoxDecoration(color: Colors.white),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Expanded(
+            flex: 1,
+            child: Image.asset(height: 56, "assets/images/logo.png"),
+          ),
+          SizedBox(width: 8),
+          Expanded(flex: 1, child: CategoryDropdown(isTablet: true)),
+          Expanded(
+            flex: 1,
+            child: ElevatedButton(onPressed: () {}, child: Row()),
           ),
         ],
       ),

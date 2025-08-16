@@ -1,9 +1,10 @@
-import 'package:amar_shodai/utils/resonsive_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:amar_shodai/utils/theme.dart';
 
 class CategoryDropdown extends StatefulWidget {
-  const CategoryDropdown({super.key});
+  final bool isTablet; // 👈 take isTablet from parent
+
+  const CategoryDropdown({super.key, required this.isTablet});
 
   @override
   _CategoryDropdownState createState() => _CategoryDropdownState();
@@ -25,9 +26,8 @@ class _CategoryDropdownState extends State<CategoryDropdown> {
 
   @override
   Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width;
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+      // padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(8),
       ),
@@ -38,7 +38,7 @@ class _CategoryDropdownState extends State<CategoryDropdown> {
             onCanceled: () => setStateSB(() => isOpen = false),
             onSelected: (String value) {
               setStateSB(() => isOpen = false);
-              // TODO: apply sorting/filtering using `value`
+              // TODO: call sorting/filtering function with value
             },
             itemBuilder: (BuildContext context) {
               return categories.map((String category) {
@@ -51,7 +51,7 @@ class _CategoryDropdownState extends State<CategoryDropdown> {
             child: Container(
               constraints: const BoxConstraints(maxWidth: 280),
               decoration: BoxDecoration(
-                color: lightMode.primaryColor,
+                color: Color(0xff8fc466),
                 borderRadius: BorderRadius.circular(4),
               ),
               child: Padding(
@@ -59,13 +59,36 @@ class _CategoryDropdownState extends State<CategoryDropdown> {
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    const Icon(Icons.menu, color: Colors.white,),
+                    const Icon(Icons.menu, color: Colors.white),
                     const SizedBox(width: 8),
-                    Text("Browse Categories", style: lightMode.textTheme.labelSmall,),
+                    widget.isTablet
+                        ? Column(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text(
+                          "BROWSE",
+                          style: lightMode.textTheme.labelSmall
+                              ?.copyWith(color: Colors.white),
+                        ),
+                        Text(
+                          "CATEGORIES",
+                          style: lightMode.textTheme.labelSmall
+                              ?.copyWith(color: Colors.white),
+                        ),
+                      ],
+                    )
+                        : Text(
+                      "BROWSE CATEGORIES",
+                      style: lightMode.textTheme.labelSmall,
+                    ),
                     const SizedBox(width: 8),
-                    Icon(isOpen
-                        ? Icons.keyboard_arrow_up
-                        : Icons.keyboard_arrow_down, color: Colors.white,),
+                    Icon(
+                      isOpen
+                          ? Icons.keyboard_arrow_up
+                          : Icons.keyboard_arrow_down,
+                      color: Colors.white,
+                    ),
                   ],
                 ),
               ),
