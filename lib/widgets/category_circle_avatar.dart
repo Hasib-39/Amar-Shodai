@@ -1,3 +1,4 @@
+import 'package:amar_shodai/utils/theme.dart';
 import 'package:flutter/material.dart';
 
 class CategoryCircleAvatar extends StatefulWidget {
@@ -26,25 +27,22 @@ class _CategoryCircleAvatarState extends State<CategoryCircleAvatar> {
         alignment: Alignment.center,
         children: [
           CircleAvatar(
-            radius: 60,
+            radius: 70,
             backgroundImage: AssetImage(widget.imagePath),
           ),
           if (isHovered)
             Container(
-              width: 120,
-              height: 120,
+              width: 140,
+              height: 140,
               decoration: BoxDecoration(
-                color: Colors.black.withOpacity(0.6),
+                color: Colors.black.withValues(alpha: 0.6),
                 shape: BoxShape.circle,
               ),
               child: Center(
                 child: Text(
                   widget.category,
                   textAlign: TextAlign.center,
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                  ),
+                  style: lightMode.textTheme.labelMedium
                 ),
               ),
             ),

@@ -10,4 +10,6 @@ const List<Map<String, dynamic>> categoriesList = [
   {"id": 3, "category": "Chicken & Duck", "imagePath": "assets/images/chicken_and_duck.jpg" },
   {"id": 4, "category": "Beef & Mutton", "imagePath": "assets/images/beef_and_mutton.jpg" },
   {"id": 5, "category": "Combo Pack", "imagePath": "assets/images/combo_pack.jpg" },
+  {"id": 6, "category": "Combo Pack", "imagePath": "assets/images/combo_pack.jpg" },
 ];
+

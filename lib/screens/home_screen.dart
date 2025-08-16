@@ -3,7 +3,6 @@ import 'package:amar_shodai/utils/theme.dart';
 import 'package:amar_shodai/widgets/image_carousel.dart';
 import 'package:amar_shodai/widgets/search_box.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../utils/constants.dart';
 import '../widgets/category_circle_avatar.dart';
@@ -17,10 +16,23 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       body: Column(
         children: [
-          ResponsiveWidget(
-            mobile: _buildMobileNavbar(),
-            tab: _buildTabNavbar(),
-            desktop: _buildDesktopNavbar(),
+          Container(
+            decoration: BoxDecoration(
+              color: Colors.white,
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.withValues(alpha: 0.6),
+                  spreadRadius: 1,
+                  blurRadius: 6,
+                  offset: const Offset(0, 3),
+                ),
+              ],
+            ),
+            child: ResponsiveWidget(
+              mobile: _buildMobileNavbar(),
+              tab: _buildTabNavbar(),
+              desktop: _buildDesktopNavbar(),
+            ),
           ),
           SizedBox(height: 10),
           Expanded(
@@ -32,10 +44,11 @@ class HomeScreen extends StatelessWidget {
                   Column(
                     children: [
                       Text("Shop by Category", style: lightMode.textTheme.titleLarge,),
-                      SizedBox(height: 10,),
+                      SizedBox(height: 32,),
                       Wrap(
-                        spacing: 16,
-                        runSpacing: 16,
+                        spacing: 80,
+                        runSpacing: 80,
+                        alignment: WrapAlignment.start,
                         children: categoriesList.map((category) {
                           return CategoryCircleAvatar(
                             imagePath: category["imagePath"],
@@ -43,6 +56,13 @@ class HomeScreen extends StatelessWidget {
                           );
                         }).toList(),
                       ),
+                    ],
+                  ),
+                  SizedBox(height: 64,),
+                  Column(
+                    children: [
+                      Text("Deals of the Day", style: lightMode.textTheme.titleLarge,),
+                      SizedBox(height: 32,),
                     ],
                   ),
                 ],

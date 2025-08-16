@@ -12,12 +12,24 @@ class ImageCarousel extends StatefulWidget {
 class _ImageCarouselState extends State<ImageCarousel> {
   final CarouselSliderController carouselSliderController = CarouselSliderController();
   int currentIndex = 0;
+
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      decoration: BoxDecoration(
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withValues(alpha: 0.6),
+            spreadRadius: 4,
+            blurRadius: 8,
+            offset: const Offset(0, 5),
+          ),
+        ],
+        borderRadius: BorderRadius.circular(12),
+      ),
       child: ClipRRect(
-        borderRadius: BorderRadius.circular(12), // your desired radius
+        borderRadius: BorderRadius.circular(12),
         child: CarouselSlider(
           items: bannerList
               .map(
@@ -43,6 +55,5 @@ class _ImageCarouselState extends State<ImageCarousel> {
         ),
       ),
     );
-
   }
 }
