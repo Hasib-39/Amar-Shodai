@@ -14,7 +14,7 @@ class HomeScreen extends StatelessWidget {
       body: Column(
         children: [
           ResponsiveWidget(
-            mobile: Text("mobile"),
+            mobile: _buildMobileNavbar(),
             tab: _buildTabNavbar(),
             desktop: _buildDesktopNavbar(),
           ),
@@ -153,6 +153,76 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
+  Container _buildMobileNavbar(){
+    return Container(
+      height: 100,
+      decoration: BoxDecoration(color: Colors.white),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          SizedBox(width: 8,),
+          Icon(Icons.menu, color: lightMode.primaryColor,),
+          SizedBox(width: 8),
+          Expanded(flex: 1, child: SearchBox()),
+          SizedBox(width: 8),
+          // Cart Button
+          Expanded(
+            flex: 0,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: IconButton(
+                onPressed: () {
+                  // TODO: Navigate to cart
+                },
+                icon: Icon(
+                  Icons.shopping_cart,
+                  size: 20,
+                  color: lightMode.primaryColor,
+                ),
+                padding: EdgeInsets.zero, // remove default padding
+              ),
+            ),
+          ),
+          // LOGIN / REGISTER Button
+          Expanded(
+            flex: 1,
+            child: TextButton.icon(
+              onPressed: () {
+                // TODO: Navigate to login/register
+              },
+              icon: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Icon(
+                  Icons.person, // user icon
+                  size: 20,
+                  color: lightMode.primaryColor,
+                ),
+              ),
+              label: Text(
+                "LOGIN / REGISTER",
+                style: GoogleFonts.robotoMono(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                  color: lightMode.primaryColor,
+                ),
+              ),
+              style: TextButton.styleFrom(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 12,
+                  vertical: 8,
+                ),
+                backgroundColor: Colors.white,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(4),
+                ),
+              ),
+            ),
+          ),
+          const SizedBox(width: 8),
+        ],
+      ),
+    );
+  }
   ElevatedButton _elevatedButton(bool isTablet) {
     return ElevatedButton(
       onPressed: () {},
