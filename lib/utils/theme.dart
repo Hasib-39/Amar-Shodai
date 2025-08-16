@@ -5,6 +5,9 @@ ThemeData lightMode = ThemeData(
   brightness: Brightness.light,
   primaryColor: Color(0xff409a44),
   scaffoldBackgroundColor: Colors.white,
+  iconTheme: IconThemeData(
+    color: Colors.white
+  ),
   textTheme: TextTheme(
     // section titles
     titleLarge: GoogleFonts.robotoMono(
@@ -18,6 +21,11 @@ ThemeData lightMode = ThemeData(
       fontWeight: FontWeight.bold,
       fontSize: 18,
     ),
+    // buttons
+      labelSmall: GoogleFonts.robotoMono(
+        color: Colors.white,
+        fontSize: 16,
+      ),
     // card title, footer titles
     titleSmall: GoogleFonts.robotoMono(
       color: Colors.black,
