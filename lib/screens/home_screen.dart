@@ -5,6 +5,8 @@ import 'package:amar_shodai/widgets/search_box.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:google_fonts/google_fonts.dart';
+import '../utils/constants.dart';
+import '../widgets/category_circle_avatar.dart';
 import '../widgets/category_drop_down.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -23,8 +25,28 @@ class HomeScreen extends StatelessWidget {
           SizedBox(height: 10),
           Expanded(
             child: SingleChildScrollView(
-              scrollDirection: Axis.vertical,
-              child: ImageCarousel(),
+              child: Column(
+                children: [
+                  ImageCarousel(),
+                  SizedBox(height: 10,),
+                  Column(
+                    children: [
+                      Text("Shop by Category", style: lightMode.textTheme.titleLarge,),
+                      SizedBox(height: 10,),
+                      Wrap(
+                        spacing: 16,
+                        runSpacing: 16,
+                        children: categoriesList.map((category) {
+                          return CategoryCircleAvatar(
+                            imagePath: category["imagePath"],
+                            category: category["category"],
+                          );
+                        }).toList(),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
         ],
