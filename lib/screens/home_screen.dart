@@ -30,38 +30,17 @@ class HomeScreen extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          Expanded(flex:0,child: Image.asset(height: 56, "assets/images/logo.png")),
-          SizedBox(width: 8),
-          Expanded(flex:0,child: CategoryDropdown(isTablet: false)),
-          SizedBox(width: 8,),
           Expanded(
             flex: 0,
-            child: ElevatedButton(
-              onPressed: () {},
-              style: ElevatedButton.styleFrom(
-                backgroundColor: const Color(0xfff97216),
-                padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 8),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(4),
-                ),
-              ),
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    "📢 OFFER",
-                    style: lightMode.textTheme.labelSmall?.copyWith(
-                      color: Colors.white, // text visible on orange bg
-                    ),
-                  ),
-                ],
-              ),
-            ),
+            child: Image.asset(height: 56, "assets/images/logo.png"),
           ),
-          SizedBox(width: 8,),
-          Expanded(flex:2,child: SearchBox()),
-          SizedBox(width: 8,),
+          SizedBox(width: 8),
+          Expanded(flex: 0, child: CategoryDropdown(isTablet: false)),
+          SizedBox(width: 8),
+          Expanded(flex: 0, child: _elevatedButton(false)),
+          SizedBox(width: 8),
+          Expanded(flex: 2, child: SearchBox()),
+          SizedBox(width: 8),
           // LOGIN / REGISTER Button
           Expanded(
             flex: 0,
@@ -79,11 +58,14 @@ class HomeScreen extends StatelessWidget {
                 style: GoogleFonts.robotoMono(
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
-                  color: Colors.white
+                  color: Colors.white,
                 ),
               ),
               style: TextButton.styleFrom(
-                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 12,
+                  vertical: 8,
+                ),
                 backgroundColor: Colors.black,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(4),
@@ -117,21 +99,101 @@ class HomeScreen extends StatelessWidget {
 
   Container _buildTabNavbar() {
     return Container(
-      height: 80,
+      height: 100,
       decoration: BoxDecoration(color: Colors.white),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Expanded(
-            flex: 1,
+            flex: 2,
             child: Image.asset(height: 56, "assets/images/logo.png"),
           ),
           SizedBox(width: 8),
-          Expanded(flex: 1, child: CategoryDropdown(isTablet: true)),
+          Expanded(flex: 0, child: CategoryDropdown(isTablet: true)),
+          SizedBox(width: 8),
+          Expanded(flex: 1, child: _elevatedButton(true)),
+          SizedBox(width: 8),
+          Expanded(flex: 1, child: SearchBox()),
+          SizedBox(width: 8),
+          // LOGIN / REGISTER Button
           Expanded(
             flex: 1,
-            child: ElevatedButton(onPressed: () {}, child: Row()),
+            child: TextButton.icon(
+              onPressed: () {
+                // TODO: Navigate to login/register
+              },
+              icon: Icon(
+                Icons.person, // user icon
+                size: 16,
+                color: Colors.white,
+              ),
+              label: Text(
+                "LOGIN / REGISTER",
+                style: GoogleFonts.robotoMono(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
+              ),
+              style: TextButton.styleFrom(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 12,
+                  vertical: 8,
+                ),
+                backgroundColor: Colors.black,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(4),
+                ),
+              ),
+            ),
           ),
+          const SizedBox(width: 8),
+        ],
+      ),
+    );
+  }
+
+  ElevatedButton _elevatedButton(bool isTablet) {
+    return ElevatedButton(
+      onPressed: () {},
+      style: ElevatedButton.styleFrom(
+        backgroundColor: const Color(0xfff97216),
+        padding: const EdgeInsets.symmetric(horizontal: 8),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
+        minimumSize: const Size(80, 40),
+      ),
+      child: Row(
+
+        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          isTablet
+              ? Column(
+            mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text(
+                      "📢",
+                      style: lightMode.textTheme.labelSmall?.copyWith(
+                        color: Colors.white,
+                      ),
+                    ),
+                    Text(
+                      "OFFER",
+                      style: lightMode.textTheme.labelSmall?.copyWith(
+                        color: Colors.white,
+                      ),
+                    ),
+                  ],
+                )
+              : Text(
+                  "📢 OFFER",
+                  style: lightMode.textTheme.labelSmall?.copyWith(
+                    color: Colors.white, // text visible on orange bg
+                  ),
+                ),
         ],
       ),
     );
