@@ -1,7 +1,9 @@
 import 'package:amar_shodai/utils/resonsive_helper.dart';
 import 'package:amar_shodai/utils/theme.dart';
+import 'package:amar_shodai/widgets/image_carousel.dart';
 import 'package:amar_shodai/widgets/search_box.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../widgets/category_drop_down.dart';
 
@@ -17,6 +19,13 @@ class HomeScreen extends StatelessWidget {
             mobile: _buildMobileNavbar(),
             tab: _buildTabNavbar(),
             desktop: _buildDesktopNavbar(),
+          ),
+          SizedBox(height: 10),
+          Expanded(
+            child: SingleChildScrollView(
+              scrollDirection: Axis.vertical,
+              child: ImageCarousel(),
+            ),
           ),
         ],
       ),
@@ -153,15 +162,15 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  Container _buildMobileNavbar(){
+  Container _buildMobileNavbar() {
     return Container(
       height: 100,
       decoration: BoxDecoration(color: Colors.white),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          SizedBox(width: 8,),
-          Icon(Icons.menu, color: lightMode.primaryColor,),
+          SizedBox(width: 8),
+          Icon(Icons.menu, color: lightMode.primaryColor),
           SizedBox(width: 8),
           Expanded(flex: 1, child: SearchBox()),
           SizedBox(width: 8),
@@ -223,6 +232,7 @@ class HomeScreen extends StatelessWidget {
       ),
     );
   }
+
   ElevatedButton _elevatedButton(bool isTablet) {
     return ElevatedButton(
       onPressed: () {},
@@ -233,14 +243,13 @@ class HomeScreen extends StatelessWidget {
         minimumSize: const Size(80, 40),
       ),
       child: Row(
-
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           isTablet
               ? Column(
-            mainAxisSize: MainAxisSize.min,
+                  mainAxisSize: MainAxisSize.min,
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
