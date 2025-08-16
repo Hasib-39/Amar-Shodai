@@ -16,62 +16,72 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       body: Column(
         children: [
-          Container(
-            decoration: BoxDecoration(
-              color: Colors.white,
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.grey.withValues(alpha: 0.6),
-                  spreadRadius: 1,
-                  blurRadius: 6,
-                  offset: const Offset(0, 3),
-                ),
-              ],
-            ),
-            child: ResponsiveWidget(
-              mobile: _buildMobileNavbar(),
-              tab: _buildTabNavbar(),
-              desktop: _buildDesktopNavbar(),
-            ),
-          ),
+          _buildNavBar(),
           SizedBox(height: 10),
-          Expanded(
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  ImageCarousel(),
-                  SizedBox(height: 10,),
-                  Column(
-                    children: [
-                      Text("Shop by Category", style: lightMode.textTheme.titleLarge,),
-                      SizedBox(height: 32,),
-                      Wrap(
-                        spacing: 80,
-                        runSpacing: 80,
-                        alignment: WrapAlignment.start,
-                        children: categoriesList.map((category) {
-                          return CategoryCircleAvatar(
-                            imagePath: category["imagePath"],
-                            category: category["category"],
-                          );
-                        }).toList(),
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: 64,),
-                  Column(
-                    children: [
-                      Text("Deals of the Day", style: lightMode.textTheme.titleLarge,),
-                      SizedBox(height: 32,),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-          ),
+          _buildBody(),
         ],
       ),
     );
+  }
+
+  Expanded _buildBody() {
+    return Expanded(
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                ImageCarousel(),
+                SizedBox(height: 10,),
+                // shop by category section
+                Column(
+                  children: [
+                    Text("Shop by Category", style: lightMode.textTheme.titleLarge,),
+                    SizedBox(height: 32,),
+                    Wrap(
+                      spacing: 80,
+                      runSpacing: 80,
+                      alignment: WrapAlignment.start,
+                      children: categoriesList.map((category) {
+                        return CategoryCircleAvatar(
+                          imagePath: category["imagePath"],
+                          category: category["category"],
+                        );
+                      }).toList(),
+                    ),
+                  ],
+                ),
+                SizedBox(height: 64,),
+                // deals of the day section
+                Column(
+                  children: [
+                    Text("Deals of the Day", style: lightMode.textTheme.titleLarge,),
+                    SizedBox(height: 32,),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        );
+  }
+
+  Container _buildNavBar() {
+    return Container(
+          decoration: BoxDecoration(
+            color: Colors.white,
+            boxShadow: [
+              BoxShadow(
+                color: Colors.grey.withValues(alpha: 0.6),
+                spreadRadius: 1,
+                blurRadius: 6,
+                offset: const Offset(0, 3),
+              ),
+            ],
+          ),
+          child: ResponsiveWidget(
+            mobile: _buildMobileNavbar(),
+            tab: _buildTabNavbar(),
+            desktop: _buildDesktopNavbar(),
+          ),
+        );
   }
 
   Container _buildDesktopNavbar() {
