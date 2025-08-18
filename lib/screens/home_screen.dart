@@ -4,9 +4,11 @@ import 'package:amar_shodai/widgets/image_carousel.dart';
 import 'package:amar_shodai/widgets/search_box.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import '../models/product_model.dart';
 import '../utils/constants.dart';
 import '../widgets/category_circle_avatar.dart';
 import '../widgets/category_drop_down.dart';
+import '../widgets/product_card.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -52,17 +54,42 @@ class HomeScreen extends StatelessWidget {
                 SizedBox(height: 64,),
                 // deals of the day section
                 Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text("Deals of the Day", style: lightMode.textTheme.titleLarge,),
-                    SizedBox(height: 32,),
+                    Text(
+                      "Deals of the Day",
+                      style: lightMode.textTheme.titleLarge,
+                    ),
+                    const SizedBox(height: 32),
+
+                    // ✅ Responsive Grid of Product Cards
+                    GridView.builder(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemCount: productList.length,
+                      gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+                        maxCrossAxisExtent: 220, // max width per card
+                        mainAxisSpacing: 12,
+                        crossAxisSpacing: 12,
+                        childAspectRatio: 0.7, // controls height vs width
+                      ),
+                      itemBuilder: (context, index) {
+                        final product = Product.fromMap(productList[index]);
+                        return ProductCard(
+                          product: product,
+                          onTap: () {
+                            // handle tap
+                          },
+                        );
+                      },
+                    ),
                   ],
-                ),
+                )
               ],
             ),
           ),
         );
   }
-
   Container _buildNavBar() {
     return Container(
           decoration: BoxDecoration(
@@ -83,7 +110,6 @@ class HomeScreen extends StatelessWidget {
           ),
         );
   }
-
   Container _buildDesktopNavbar() {
     return Container(
       height: 80,
@@ -157,7 +183,6 @@ class HomeScreen extends StatelessWidget {
       ),
     );
   }
-
   Container _buildTabNavbar() {
     return Container(
       height: 100,
@@ -213,7 +238,6 @@ class HomeScreen extends StatelessWidget {
       ),
     );
   }
-
   Container _buildMobileNavbar() {
     return Container(
       height: 100,
@@ -284,7 +308,6 @@ class HomeScreen extends StatelessWidget {
       ),
     );
   }
-
   ElevatedButton _elevatedButton(bool isTablet) {
     return ElevatedButton(
       onPressed: () {},
