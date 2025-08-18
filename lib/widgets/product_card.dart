@@ -1,4 +1,6 @@
+import 'package:amar_shodai/utils/theme.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import '../models/product_model.dart';
 
 class ProductCard extends StatelessWidget {
@@ -26,6 +28,7 @@ class ProductCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            // Image + optional discount badge
             Stack(
               children: [
                 ClipRRect(
@@ -37,7 +40,7 @@ class ProductCard extends StatelessWidget {
                     fit: BoxFit.cover,
                   ),
                 ),
-                if (product.discount != null)
+                if (product.discount != null && product.discount!.isNotEmpty)
                   Positioned(
                     top: 8,
                     left: 8,
@@ -60,46 +63,55 @@ class ProductCard extends StatelessWidget {
               ],
             ),
 
+            // Name + Prices
             Padding(
               padding: const EdgeInsets.all(12),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    product.name,
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                    style: const TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w600,
+              child: ConstrainedBox(
+                constraints: const BoxConstraints(
+                  minHeight: 70, // ensures cards without oldPrice are same height
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      product.name,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      style: lightMode.textTheme.titleSmall
                     ),
-                  ),
-                  const SizedBox(height: 6),
-                  Column(
-                    children: [
-                      if (product.oldPrice != null)
+                    const SizedBox(height: 8),
+
+                    // Prices
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(
+                          height: 16, // reserve height for oldPrice line
+                          child: (product.oldPrice != null && product.oldPrice!.isNotEmpty)
+                              ? Text(
+                            product.oldPrice!,
+                            style: GoogleFonts.robotoMono(
+                              color: Colors.grey.shade500,
+                              decoration: TextDecoration.lineThrough,
+                              decorationColor: Colors.grey.shade500
+                            )
+                          )
+                              : const SizedBox.shrink(),
+                        ),
                         Text(
-                          product.oldPrice!,
-                          style: const TextStyle(
-                            fontSize: 12,
-                            color: Colors.grey,
-                            decoration: TextDecoration.lineThrough,
-                          ),
+                          product.newPrice,
+                          style: GoogleFonts.robotoMono(
+                            color: lightMode.primaryColor,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 14
+                          )
                         ),
-                      if (product.oldPrice != null) const SizedBox(width: 8),
-                      Text(
-                        product.newPrice,
-                        style: const TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.green,
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
+                      ],
+                    ),
+                  ],
+                ),
               ),
-            )
+            ),
           ],
         ),
       ),

@@ -17,99 +17,120 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
-        children: [
-          _buildNavBar(),
-          SizedBox(height: 10),
-          _buildBody(),
-        ],
+        children: [_buildNavBar(), SizedBox(height: 10), _buildBody()],
       ),
     );
   }
 
   Expanded _buildBody() {
     return Expanded(
-          child: SingleChildScrollView(
-            child: Column(
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            ImageCarousel(),
+            SizedBox(height: 10),
+            // shop by category section
+            Column(
               children: [
-                ImageCarousel(),
-                SizedBox(height: 10,),
-                // shop by category section
-                Column(
-                  children: [
-                    Text("Shop by Category", style: lightMode.textTheme.titleLarge,),
-                    SizedBox(height: 32,),
-                    Wrap(
-                      spacing: 80,
-                      runSpacing: 80,
-                      alignment: WrapAlignment.start,
-                      children: categoriesList.map((category) {
-                        return CategoryCircleAvatar(
-                          imagePath: category["imagePath"],
-                          category: category["category"],
-                        );
-                      }).toList(),
-                    ),
-                  ],
+                Text("Shop by Category", style: lightMode.textTheme.titleLarge),
+                SizedBox(height: 32),
+                Wrap(
+                  spacing: 80,
+                  runSpacing: 80,
+                  alignment: WrapAlignment.start,
+                  children: categoriesList.map((category) {
+                    return CategoryCircleAvatar(
+                      imagePath: category["imagePath"],
+                      category: category["category"],
+                    );
+                  }).toList(),
                 ),
-                SizedBox(height: 64,),
-                // deals of the day section
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Deals of the Day",
-                      style: lightMode.textTheme.titleLarge,
-                    ),
-                    const SizedBox(height: 32),
-
-                    // ✅ Responsive Grid of Product Cards
-                    GridView.builder(
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemCount: productList.length,
-                      gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-                        maxCrossAxisExtent: 220, // max width per card
-                        mainAxisSpacing: 12,
-                        crossAxisSpacing: 12,
-                        childAspectRatio: 0.7, // controls height vs width
-                      ),
-                      itemBuilder: (context, index) {
-                        final product = Product.fromMap(productList[index]);
-                        return ProductCard(
-                          product: product,
-                          onTap: () {
-                            // handle tap
-                          },
-                        );
-                      },
-                    ),
-                  ],
-                )
               ],
             ),
-          ),
-        );
+            SizedBox(height: 64),
+            // deals of the day section
+            Column(
+              children: [
+                Text("Deals of the Day", style: lightMode.textTheme.titleLarge),
+                const SizedBox(height: 32),
+
+                // Responsive grid using your ResponsiveWidget
+                ResponsiveWidget(
+                  mobile: _buildMobileDealsSection(),
+                  tab: _buildTabDealsSection(),
+                  desktop: _buildDesktopDealsSection(),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
   }
+
+  Wrap _buildDesktopDealsSection() {
+    return Wrap(
+      spacing: 24,
+      runSpacing: 24,
+      children: productList.map((p) {
+        final product = Product.fromMap(p);
+        return SizedBox(
+          width: 300, // 4 columns on desktop
+          child: ProductCard(product: product, onTap: () {}),
+        );
+      }).toList(),
+    );
+  }
+
+  Wrap _buildTabDealsSection() {
+    return Wrap(
+      spacing: 20,
+      runSpacing: 20,
+      children: productList.map((p) {
+        final product = Product.fromMap(p);
+        return SizedBox(
+          width: 250, // 3 columns on tablet
+          child: ProductCard(product: product, onTap: () {}),
+        );
+      }).toList(),
+    );
+  }
+
+  Wrap _buildMobileDealsSection() {
+    return Wrap(
+      spacing: 16,
+      runSpacing: 16,
+      children: productList.map((p) {
+        final product = Product.fromMap(p);
+        return SizedBox(
+          width: 180, // 2 columns on mobile
+          child: ProductCard(product: product, onTap: () {}),
+        );
+      }).toList(),
+    );
+  }
+
   Container _buildNavBar() {
     return Container(
-          decoration: BoxDecoration(
-            color: Colors.white,
-            boxShadow: [
-              BoxShadow(
-                color: Colors.grey.withValues(alpha: 0.6),
-                spreadRadius: 1,
-                blurRadius: 6,
-                offset: const Offset(0, 3),
-              ),
-            ],
+      decoration: BoxDecoration(
+        color: Colors.white,
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withValues(alpha: 0.6),
+            spreadRadius: 1,
+            blurRadius: 6,
+            offset: const Offset(0, 3),
           ),
-          child: ResponsiveWidget(
-            mobile: _buildMobileNavbar(),
-            tab: _buildTabNavbar(),
-            desktop: _buildDesktopNavbar(),
-          ),
-        );
+        ],
+      ),
+      child: ResponsiveWidget(
+        mobile: _buildMobileNavbar(),
+        tab: _buildTabNavbar(),
+        desktop: _buildDesktopNavbar(),
+      ),
+    );
   }
+
   Container _buildDesktopNavbar() {
     return Container(
       height: 80,
@@ -183,6 +204,7 @@ class HomeScreen extends StatelessWidget {
       ),
     );
   }
+
   Container _buildTabNavbar() {
     return Container(
       height: 100,
@@ -238,6 +260,7 @@ class HomeScreen extends StatelessWidget {
       ),
     );
   }
+
   Container _buildMobileNavbar() {
     return Container(
       height: 100,
@@ -308,6 +331,7 @@ class HomeScreen extends StatelessWidget {
       ),
     );
   }
+
   ElevatedButton _elevatedButton(bool isTablet) {
     return ElevatedButton(
       onPressed: () {},
