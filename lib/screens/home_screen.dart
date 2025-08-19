@@ -62,6 +62,43 @@ class HomeScreen extends StatelessWidget {
                 ),
               ],
             ),
+            SizedBox(height: 32),
+            OutlinedButton(
+              style: OutlinedButton.styleFrom(
+                foregroundColor: Colors.white,
+                side: BorderSide(color: Colors.white, width: 2),
+                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                backgroundColor: lightMode.primaryColor,
+                shadowColor: Colors.grey,
+                elevation: 2,
+              ),
+              onPressed: () {},
+              child: Text(
+                "Lead More",
+                style: GoogleFonts.robotoMono(
+                  color: Colors.white,
+                  fontSize: 14,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+            SizedBox(height: 64),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                SizedBox(
+                  width: double.infinity,
+                  child: Text(
+                    "WE ARE VERY PROUD TO SERVE",
+                    style: lightMode.textTheme.titleLarge,
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+              ],
+            ),
           ],
         ),
       ),
