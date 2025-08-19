@@ -36,6 +36,8 @@ dependencies:
   cupertino_icons: ^1.0.8
   google_fonts: ^6.3.0
   carousel_slider: ^5.1.1
+  font_awesome_flutter: ^10.9.1
+  url_launcher: ^6.3.2
 
 dev_dependencies:
   flutter_test:

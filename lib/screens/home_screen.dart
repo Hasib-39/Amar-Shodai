@@ -1,5 +1,6 @@
 import 'package:amar_shodai/utils/resonsive_helper.dart';
 import 'package:amar_shodai/utils/theme.dart';
+import 'package:amar_shodai/widgets/footer_section.dart';
 import 'package:amar_shodai/widgets/image_carousel.dart';
 import 'package:amar_shodai/widgets/search_box.dart';
 import 'package:flutter/material.dart';
@@ -99,6 +100,8 @@ class HomeScreen extends StatelessWidget {
                 ),
               ],
             ),
+            SizedBox(height: 32,),
+            const FooterSection(),
           ],
         ),
       ),
