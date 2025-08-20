@@ -1,3 +1,4 @@
+import 'package:amar_shodai/screens/login_screen.dart';
 import 'package:amar_shodai/utils/resonsive_helper.dart';
 import 'package:amar_shodai/utils/theme.dart';
 import 'package:amar_shodai/widgets/footer_section.dart';
@@ -11,9 +12,15 @@ import '../widgets/category_circle_avatar.dart';
 import '../widgets/category_drop_down.dart';
 import '../widgets/product_card.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  String _currentPage = "home";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,7 +30,10 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  Expanded _buildBody() {
+  Widget _buildBody() {
+    if(_currentPage == "login"){
+      return Expanded(child: const LoginScreen());
+    }
     return Expanded(
       child: SingleChildScrollView(
         child: Column(
@@ -180,7 +190,17 @@ class HomeScreen extends StatelessWidget {
         children: [
           Expanded(
             flex: 0,
-            child: Image.asset(height: 56, "assets/images/logo.png"),
+            child: InkWell(
+              onTap: () {
+                setState(() {
+                  _currentPage = "home";
+                });
+              },
+              child: Image.asset(
+                "assets/images/logo.png",
+                height: 56,
+              ),
+            ),
           ),
           SizedBox(width: 8),
           Expanded(flex: 0, child: CategoryDropdown(isTablet: false)),
@@ -195,6 +215,9 @@ class HomeScreen extends StatelessWidget {
             child: TextButton.icon(
               onPressed: () {
                 // TODO: Navigate to login/register
+                setState(() {
+                  _currentPage = "login";
+                });
               },
               icon: Icon(
                 Icons.person, // user icon
@@ -253,8 +276,18 @@ class HomeScreen extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Expanded(
-            flex: 2,
-            child: Image.asset(height: 56, "assets/images/logo.png"),
+            flex: 0,
+            child: InkWell(
+              onTap: () {
+                setState(() {
+                  _currentPage = "home";
+                });
+              },
+              child: Image.asset(
+                "assets/images/logo.png",
+                height: 56,
+              ),
+            ),
           ),
           SizedBox(width: 8),
           Expanded(flex: 0, child: CategoryDropdown(isTablet: true)),
@@ -268,7 +301,9 @@ class HomeScreen extends StatelessWidget {
             flex: 1,
             child: TextButton.icon(
               onPressed: () {
-                // TODO: Navigate to login/register
+                setState(() {
+                  _currentPage = "login";
+                });
               },
               icon: Icon(
                 Icons.person, // user icon
@@ -327,21 +362,22 @@ class HomeScreen extends StatelessWidget {
                   size: 20,
                   color: lightMode.primaryColor,
                 ),
-                padding: EdgeInsets.zero, // remove default padding
+                padding: EdgeInsets.zero,
               ),
             ),
           ),
-          // LOGIN / REGISTER Button
           Expanded(
             flex: 1,
             child: TextButton.icon(
               onPressed: () {
-                // TODO: Navigate to login/register
+                setState(() {
+                  _currentPage = "login";
+                });
               },
               icon: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Icon(
-                  Icons.person, // user icon
+                  Icons.person,
                   size: 20,
                   color: lightMode.primaryColor,
                 ),
