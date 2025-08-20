@@ -107,7 +107,10 @@ class _HomeScreenState extends State<HomeScreen> {
               style: OutlinedButton.styleFrom(
                 foregroundColor: Colors.white,
                 side: const BorderSide(color: Colors.white, width: 2),
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 20,
+                  vertical: 16,
+                ),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12),
                 ),
@@ -216,10 +219,7 @@ class _HomeScreenState extends State<HomeScreen> {
             flex: 0,
             child: InkWell(
               onTap: () => setState(() => _currentPage = "home"),
-              child: Image.asset(
-                "assets/images/logo.png",
-                height: 56,
-              ),
+              child: Image.asset("assets/images/logo.png", height: 56),
             ),
           ),
           const SizedBox(width: 8),
@@ -233,32 +233,47 @@ class _HomeScreenState extends State<HomeScreen> {
             flex: 0,
             child: _profileImage == null
                 ? TextButton.icon(
-              onPressed: () {
-                setState(() {
-                  _currentPage = "login"; // show login screen
-                });
-              },
-              icon: const Icon(Icons.person, size: 16, color: Colors.white),
-              label: Text(
-                "LOGIN / REGISTER",
-                style: GoogleFonts.robotoMono(
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                ),
-              ),
-              style: TextButton.styleFrom(
-                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-                backgroundColor: Colors.black,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(4),
-                ),
-              ),
-            )
+                    onPressed: () {
+                      setState(() {
+                        _currentPage = "login"; // show login screen
+                      });
+                    },
+                    icon: const Icon(
+                      Icons.person,
+                      size: 16,
+                      color: Colors.white,
+                    ),
+                    label: Text(
+                      "LOGIN / REGISTER",
+                      style: GoogleFonts.robotoMono(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                    ),
+                    style: TextButton.styleFrom(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 12,
+                        vertical: 8,
+                      ),
+                      backgroundColor: Colors.black,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(4),
+                      ),
+                    ),
+                  )
                 : CircleAvatar(
-              radius: 20,
-              backgroundImage: FileImage(_profileImage!),
-            ),
+                    radius: 20,
+                    backgroundColor: Colors.grey[200],
+                    child: ClipOval(
+                      child: Image.file(
+                        _profileImage!,
+                        width: 40,
+                        height: 40,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
           ),
 
           const SizedBox(width: 8),
@@ -266,7 +281,11 @@ class _HomeScreenState extends State<HomeScreen> {
             flex: 0,
             child: IconButton(
               onPressed: () {},
-              icon: const Icon(Icons.shopping_cart, size: 30, color: Colors.black),
+              icon: const Icon(
+                Icons.shopping_cart,
+                size: 30,
+                color: Colors.black,
+              ),
             ),
           ),
         ],
@@ -294,16 +313,28 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       child: isTablet
           ? Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Text("📢", style: lightMode.textTheme.labelSmall?.copyWith(color: Colors.white)),
-          Text("OFFER", style: lightMode.textTheme.labelSmall?.copyWith(color: Colors.white)),
-        ],
-      )
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  "📢",
+                  style: lightMode.textTheme.labelSmall?.copyWith(
+                    color: Colors.white,
+                  ),
+                ),
+                Text(
+                  "OFFER",
+                  style: lightMode.textTheme.labelSmall?.copyWith(
+                    color: Colors.white,
+                  ),
+                ),
+              ],
+            )
           : Text(
-        "📢 OFFER",
-        style: lightMode.textTheme.labelSmall?.copyWith(color: Colors.white),
-      ),
+              "📢 OFFER",
+              style: lightMode.textTheme.labelSmall?.copyWith(
+                color: Colors.white,
+              ),
+            ),
     );
   }
 }
