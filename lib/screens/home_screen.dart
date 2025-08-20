@@ -295,12 +295,177 @@ class _HomeScreenState extends State<HomeScreen> {
 
   // Tablet & mobile navbars can be similarly modified for profile image
   Container _buildTabNavbar() {
-    return _buildDesktopNavbar(); // for simplicity, use same layout
+    return Container(
+      height: 100,
+      decoration: const BoxDecoration(color: Colors.white),
+      child: Row(
+        children: [
+          // Logo
+          Expanded(
+            flex: 0,
+            child: InkWell(
+              onTap: () => setState(() => _currentPage = "home"),
+              child: Image.asset(
+                "assets/images/logo.png",
+                height: 56,
+              ),
+            ),
+          ),
+          const SizedBox(width: 8),
+
+          // Category Dropdown
+          Expanded(flex: 0, child: CategoryDropdown(isTablet: true)),
+          const SizedBox(width: 8),
+
+          // Elevated Button
+          Expanded(flex: 1, child: _elevatedButton(true)),
+          const SizedBox(width: 8),
+
+          // Search Box
+          Expanded(flex: 1, child: SearchBox()),
+          const SizedBox(width: 8),
+
+          // LOGIN / REGISTER or Profile Image
+          Expanded(
+            flex: 1,
+            child: _profileImage == null
+                ? TextButton.icon(
+              onPressed: () {
+                setState(() {
+                  _currentPage = "login"; // show login screen
+                });
+              },
+              icon: const Icon(
+                Icons.person,
+                size: 16,
+                color: Colors.white,
+              ),
+              label: Text(
+                "LOGIN / REGISTER",
+                style: GoogleFonts.robotoMono(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
+              ),
+              style: TextButton.styleFrom(
+                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                backgroundColor: Colors.black,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(4),
+                ),
+              ),
+            )
+                : CircleAvatar(
+              radius: 20,
+              backgroundColor: Colors.grey[200],
+              child: ClipOval(
+                child: Image.file(
+                  _profileImage!,
+                  width: 40,
+                  height: 40,
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),
+          ),
+
+          const SizedBox(width: 8),
+        ],
+      ),
+    );
   }
 
+
+
   Container _buildMobileNavbar() {
-    return _buildDesktopNavbar(); // or customize layout for mobile
+    return Container(
+      height: 100,
+      decoration: BoxDecoration(color: Colors.white),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          const SizedBox(width: 8),
+
+          // Menu icon
+          Icon(Icons.menu, color: lightMode.primaryColor),
+          const SizedBox(width: 8),
+
+          // Search box
+          Expanded(flex: 1, child: SearchBox()),
+          const SizedBox(width: 8),
+
+          // Cart button
+          Expanded(
+            flex: 0,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: IconButton(
+                onPressed: () {},
+                icon: Icon(
+                  Icons.shopping_cart,
+                  size: 20,
+                  color: lightMode.primaryColor,
+                ),
+                padding: EdgeInsets.zero,
+              ),
+            ),
+          ),
+          const SizedBox(width: 8),
+
+          // LOGIN / REGISTER or Profile Image
+          Expanded(
+            flex: 1,
+            child: _profileImage == null
+                ? TextButton.icon(
+              onPressed: () {
+                setState(() {
+                  _currentPage = "login"; // show login screen
+                });
+              },
+              icon: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Icon(
+                  Icons.person,
+                  size: 20,
+                  color: lightMode.primaryColor,
+                ),
+              ),
+              label: Text(
+                "LOGIN / REGISTER",
+                style: GoogleFonts.robotoMono(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                  color: lightMode.primaryColor,
+                ),
+              ),
+              style: TextButton.styleFrom(
+                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                backgroundColor: Colors.white,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(4),
+                ),
+              ),
+            )
+                : CircleAvatar(
+              radius: 20,
+              backgroundColor: Colors.grey[200],
+              child: ClipOval(
+                child: Image.file(
+                  _profileImage!,
+                  width: 40,
+                  height: 40,
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),
+          ),
+          const SizedBox(width: 8),
+        ],
+      ),
+    );
   }
+
 
   ElevatedButton _elevatedButton(bool isTablet) {
     return ElevatedButton(
