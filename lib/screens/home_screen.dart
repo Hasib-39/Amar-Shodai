@@ -24,7 +24,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   String _currentPage = "home";
-  File? _profileImage; // store picked image
+  File? _profileImage;
 
   @override
   Widget build(BuildContext context) {
@@ -54,12 +54,12 @@ class _HomeScreenState extends State<HomeScreen> {
               _currentPage = "login";
             });
           },
-          onImagePicked: (File image) {
+          onSignUpClicked: (File? image){
             setState(() {
               _profileImage = image;
               _currentPage = "home";
             });
-          },
+          }
         ),
       );
     }
