@@ -6,7 +6,9 @@ import 'package:google_fonts/google_fonts.dart';
 import '../widgets/footer_section.dart';
 
 class LoginScreen extends StatelessWidget {
-  const LoginScreen({super.key});
+  final VoidCallback onRegisterTap;
+
+  const LoginScreen({super.key, required this.onRegisterTap});
 
   @override
   Widget build(BuildContext context) {
@@ -68,13 +70,16 @@ class LoginScreen extends StatelessWidget {
                               color: Colors.white,
                             ),
                           ),
-                          Text(
-                            "Register Now",
-                            style: lightMode.textTheme.labelSmall?.copyWith(
-                              decoration: TextDecoration.underline,
-                              decorationColor: Colors.white,
-                              decorationThickness: 2,
-                              fontWeight: FontWeight.w500,
+                          InkWell(
+                            onTap: onRegisterTap,
+                            child: Text(
+                              "Register Now",
+                              style: lightMode.textTheme.labelSmall?.copyWith(
+                                decoration: TextDecoration.underline,
+                                decorationColor: Colors.white,
+                                decorationThickness: 2,
+                                fontWeight: FontWeight.w500,
+                              ),
                             ),
                           ),
                         ],
@@ -296,13 +301,18 @@ class LoginScreen extends StatelessWidget {
                         color: Colors.white,
                       ),
                     ),
-                    Text(
-                      "Register Now",
-                      style: lightMode.textTheme.labelSmall?.copyWith(
-                        decoration: TextDecoration.underline,
-                        decorationColor: Colors.white,
-                        decorationThickness: 2,
-                        fontWeight: FontWeight.w500,
+                    InkWell(
+                      onTap: (){
+
+                      },
+                      child: Text(
+                        "Register Now",
+                        style: lightMode.textTheme.labelSmall?.copyWith(
+                          decoration: TextDecoration.underline,
+                          decorationColor: Colors.white,
+                          decorationThickness: 2,
+                          fontWeight: FontWeight.w500,
+                        ),
                       ),
                     ),
                   ],
