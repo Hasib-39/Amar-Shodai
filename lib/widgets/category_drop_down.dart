@@ -34,6 +34,7 @@ class _CategoryDropdownState extends State<CategoryDropdown> {
       child: StatefulBuilder(
         builder: (context, setStateSB) {
           return PopupMenuButton<String>(
+            position: PopupMenuPosition.under,
             onOpened: () => setStateSB(() => isOpen = true),
             onCanceled: () => setStateSB(() => isOpen = false),
             onSelected: (String value) {
@@ -48,48 +49,50 @@ class _CategoryDropdownState extends State<CategoryDropdown> {
                 );
               }).toList();
             },
-            child: Container(
-              constraints: const BoxConstraints(maxWidth: 280),
-              decoration: BoxDecoration(
-                color: Color(0xff8fc466),
-                borderRadius: BorderRadius.circular(4),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    const Icon(Icons.menu, color: Colors.white),
-                    const SizedBox(width: 8),
-                    widget.isTablet
-                        ? Column(
-                      mainAxisSize: MainAxisSize.min,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Text(
-                          "BROWSE",
-                          style: lightMode.textTheme.labelSmall
-                              ?.copyWith(color: Colors.white),
-                        ),
-                        Text(
-                          "CATEGORIES",
-                          style: lightMode.textTheme.labelSmall
-                              ?.copyWith(color: Colors.white),
-                        ),
-                      ],
-                    )
-                        : Text(
-                      "BROWSE CATEGORIES",
-                      style: lightMode.textTheme.labelSmall,
-                    ),
-                    const SizedBox(width: 8),
-                    Icon(
-                      isOpen
-                          ? Icons.keyboard_arrow_up
-                          : Icons.keyboard_arrow_down,
-                      color: Colors.white,
-                    ),
-                  ],
+            child: Padding(
+              padding: const EdgeInsets.only(bottom: 8.0),
+              child: Container(
+                constraints: const BoxConstraints(maxWidth: 320),
+                decoration: BoxDecoration(
+                  color: Color(0xff8fc466),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      const Icon(Icons.menu, color: Colors.white),
+                      const SizedBox(width: 8),
+                      widget.isTablet
+                          ? Column(
+                        mainAxisSize: MainAxisSize.min,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Text(
+                            "BROWSE",
+                            style: lightMode.textTheme.labelSmall
+                                ?.copyWith(color: Colors.white),
+                          ),
+                          Text(
+                            "CATEGORIES",
+                            style: lightMode.textTheme.labelSmall
+                                ?.copyWith(color: Colors.white),
+                          ),
+                        ],
+                      )
+                          : Text(
+                        "BROWSE CATEGORIES",
+                        style: lightMode.textTheme.labelSmall,
+                      ),
+                      const SizedBox(width: 8),
+                      Icon(
+                        isOpen
+                            ? Icons.keyboard_arrow_up
+                            : Icons.keyboard_arrow_down,
+                        color: Colors.white,
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
