@@ -29,11 +29,16 @@ class _CategoryDropdownState extends State<CategoryDropdown> {
     return Container(
       // padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
       decoration: BoxDecoration(
+        color: Colors.white,
         borderRadius: BorderRadius.circular(8),
       ),
       child: StatefulBuilder(
         builder: (context, setStateSB) {
           return PopupMenuButton<String>(
+            color: Colors.white,
+            shape: const RoundedRectangleBorder(
+              side: BorderSide(color: Color(0xffd1d5db), width: 1)
+            ),
             position: PopupMenuPosition.under,
             onOpened: () => setStateSB(() => isOpen = true),
             onCanceled: () => setStateSB(() => isOpen = false),
@@ -42,19 +47,27 @@ class _CategoryDropdownState extends State<CategoryDropdown> {
               // TODO: call sorting/filtering function with value
             },
             itemBuilder: (BuildContext context) {
-              return categories.map((String category) {
-                return PopupMenuItem<String>(
-                  value: category,
-                  child: Text(category),
+              List<PopupMenuEntry<String>> items = [];
+              for (int i = 0; i < categories.length; i++) {
+                items.add(
+                  PopupMenuItem<String>(
+                    value: categories[i],
+                    child: Text(categories[i], style: lightMode.textTheme.bodySmall?.copyWith(fontSize: 16)),
+                  ),
                 );
-              }).toList();
+                if (i != categories.length - 1) {
+                  items.add(const PopupMenuDivider(height: 1, color: Color(0xFFD1D5DB)));
+                }
+              }
+              return items;
             },
             child: Padding(
               padding: const EdgeInsets.only(bottom: 8.0),
               child: Container(
-                constraints: const BoxConstraints(maxWidth: 320),
+                constraints: const BoxConstraints(maxWidth: 280),
                 decoration: BoxDecoration(
                   color: Color(0xff8fc466),
+                  borderRadius: BorderRadius.circular(4)
                 ),
                 child: Padding(
                   padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
